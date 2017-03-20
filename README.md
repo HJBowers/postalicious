@@ -1,4 +1,6 @@
-# postalicious
+# postalicious - #paltry-hummingbird
+- Breyana Scales
+- Benjamin Pettus
 
 ## Specifications
 
