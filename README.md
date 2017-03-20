@@ -2,6 +2,8 @@
 - Breyana Scales
 - Benjamin Pettus
 
+[Link to the Project Page](http://jsdev.learnersguild.org/goals/194-Postalicious-Demystifying_HTTP.html)
+
 ## Specifications
 
 General
