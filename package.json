@@ -1,0 +1,27 @@
+{
+  "name": "postalicious",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run pl & npm run sandbox-server",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sb": "node sandbox-server/server.js",
+    "pl": "node postalicious/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/benjaminpettus/postalicious.git"
+  },
+  "author": "benjaminpettus, breyana",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/benjaminpettus/postalicious/issues"
+  },
+  "homepage": "https://github.com/benjaminpettus/postalicious#readme",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "eslint": "^3.18.0",
+    "express": "^4.15.2"
+  }
+}
