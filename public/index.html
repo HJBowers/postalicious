@@ -2,18 +2,22 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="/css/styles.css">
     <title>Postalicious</title>
   </head>
   <body>
     <h1>stuff</h1>
     <form class="request-builder" action="index.html" method="post">
+
       <div class="method-host">
-        <input class="method" type="text" name="method" value="method">
+        Method
+        <input class="method" type="text" name="method" value="GET">
+        Host
         <input class="host" type="text" name="host" value="host">
       </div>
 
       <div class="query-params">
-
+        Query Parameters
         <div class="key-value">
           <input type="text" name="key1" value="key">
           <input type="text" name="value1" value="value">
@@ -31,8 +35,41 @@
 
       </div>
 
+      <div class="headers">
+        Headers
+        <div class="key-value">
+          <input type="text" name="header-key1" value="key">
+          <input type="text" name="header-value1" value="value">
+        </div>
+
+        <div class="key-value">
+          <input type="text" name="header-key2" value="key">
+          <input type="text" name="header-value2" value="value">
+        </div>
+
+        <div class="key-value">
+          <input type="text" name="header-key3" value="key">
+          <input type="text" name="header-value3" value="value">
+        </div>
+      </div>
+
+      <div class="input-body">
+        Body
+        <input type="text" name="input-body" value="">
+      </div>
+
+      <button type="button" name="button">Build Request</button>
+      <button type="button" name="button">Build Form</button>
     </form>
 
-    <script type="text/javascript" src="public/serverlicious.js"></script>
+    <div class="">
+      REQUEST
+    </div>
+
+    <div class="">
+      RESPONSE
+    </div>
+
+    <script type="text/javascript" href="postalicious/serverlicious.js"></script>
   </body>
 </html>

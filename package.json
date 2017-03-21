@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm run pl & npm run sandbox-server",
-    "sb": "node sandbox-server/server.js",
-    "pl": "node postalicious/serverlicious.js"
+    "start": "npm run pl & npm run sb",
+    "sb": "nodemon sandbox-server/server.js",
+    "pl": "nodemon postalicious/serverlicious.js"
   },
   "repository": {
     "type": "git",
