@@ -30,16 +30,32 @@ app.post('/things', (request, response) => {
       .send('New thing created: \"' + request.body + '\"!')
 })
 
-app.get('/somefile', (request, res) => {
+app.get('/somefile', (request, response) => {
   console.log(response.format)
   response.format({
     text: () => {
       response.status(200)
-        .send('This is a plain text file')
+        .type('text/plain')
+          .send('This is a plain text file')
     },
     html: () => {
       response.status(200)
-        .send('<!DOCTYPE html><html><body>This is an HTML file</body></html>')
+        .type('text/html')
+          .send('<!DOCTYPE html><html><body>This is an HTML file</body></html>')
+    },
+    default: () => {
+      response.status(406)
+        .send('Not Acceptable')
+    }
+  })
+})
+
+app.get('/myjsondata', (request, response) => {
+  response.format({
+    json: () => {
+      response.status(200)
+        .type('application/json')
+          .send({"title": "some JSON data"})
     },
     default: () => {
       response.status(406)
