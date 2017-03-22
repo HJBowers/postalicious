@@ -2,74 +2,89 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
     <link rel="stylesheet" href="/css/styles.css">
     <title>Postalicious</title>
   </head>
   <body>
-    <h1>stuff</h1>
-    <form class="request-builder" action="index.html" method="post">
+    <h1>Postalicious</h1>
+    <form id="formz" class="request-builder" enctype="application/x-www-form-urlencoded">
+      <div class="form-top">
+        <div class="method-host form-child">
+          Method
+          <input class="method" type="text" name="method" placeholder="GET">
+          Host
+          <input class="host" type="text" name="host" placeholder="host">
+        </div>
 
-      <div class="method-host">
-        Method
-        <input class="method" type="text" name="method" value="GET">
-        Host
-        <input class="host" type="text" name="host" value="host">
+        <div class="query-params form-child">
+          Query Parameters
+          <div class="key-value">
+            <input class="keyfield" type="text" name="key1" placeholder="key">
+            <input class="valuefield" type="text" name="value1" placeholder="value">
+          </div>
+
+          <div class="key-value">
+            <input class="keyfield" type="text" name="key2" placeholder="key">
+            <input class="valuefield" type="text" name="value2" placeholder="value">
+          </div>
+
+          <div class="key-value">
+            <input class="keyfield" type="text" name="key3" placeholder="key">
+            <input class="valuefield" type="text" name="value3" placeholder="value">
+          </div>
+        </div>
+
+        <div class="headers form-child">
+          Headers
+          <div class="key-value">
+            <input class="keyfield" type="text" name="header-key1" placeholder="key">
+            <input class="valuefield" type="text" name="header-value1" placeholder="value">
+          </div>
+
+          <div class="key-value">
+            <input class="keyfield" type="text" name="header-key2" placeholder="key">
+            <input class="valuefield" type="text" name="header-value2" placeholder="value">
+          </div>
+
+          <div class="key-value">
+            <input class="keyfield" type="text" name="header-key3" placeholder="key">
+            <input class="valuefield" type="text" name="header-value3" placeholder="value">
+          </div>
+        </div>
+
+        <div class="input-body form-child">
+          Body
+          <textarea class="input-body-field" type="text" name="input-body" placeholder=""></textarea>
+        </div>
       </div>
 
-      <div class="query-params">
-        Query Parameters
-        <div class="key-value">
-          <input type="text" name="key1" value="key">
-          <input type="text" name="value1" value="value">
-        </div>
-
-        <div class="key-value">
-          <input type="text" name="key2" value="key">
-          <input type="text" name="value2" value="value">
-        </div>
-
-        <div class="key-value">
-          <input type="text" name="key3" value="key">
-          <input type="text" name="value3" value="value">
-        </div>
-
+      <div class="form-buttons">
+        <button type="submit" onclick="populateRequest()" name="button">Build Request</button>
+        <button type="button" name="button">Build & Send</button>
       </div>
-
-      <div class="headers">
-        Headers
-        <div class="key-value">
-          <input type="text" name="header-key1" value="key">
-          <input type="text" name="header-value1" value="value">
-        </div>
-
-        <div class="key-value">
-          <input type="text" name="header-key2" value="key">
-          <input type="text" name="header-value2" value="value">
-        </div>
-
-        <div class="key-value">
-          <input type="text" name="header-key3" value="key">
-          <input type="text" name="header-value3" value="value">
-        </div>
-      </div>
-
-      <div class="input-body">
-        Body
-        <input type="text" name="input-body" value="">
-      </div>
-
-      <button type="button" name="button">Build Request</button>
-      <button type="button" name="button">Build Form</button>
     </form>
+    <div>
+      <div class="">
+        REQUEST
+      </div>
+      <div class="request-container">
 
-    <div class="">
-      REQUEST
+      </div>
+
+      <div class="">
+        RESPONSE
+      </div>
+      <div class="response-container">
+
+      </div>
     </div>
 
-    <div class="">
-      RESPONSE
-    </div>
-
+    <script type="text/javascript" src="/javascript/script.js"></script>
     <script type="text/javascript" href="postalicious/serverlicious.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
   </body>
 </html>

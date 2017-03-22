@@ -7,15 +7,18 @@ const app = express()
 app.use(express.static(path.join(__dirname, '../public')))
 app.set('view engine', 'html')
 
-app.use(bodyParser.text({
-  defaultCharset: 'utf-8',
-  type: 'text/plain'
-}))
+// app.use(bodyParser.text({
+//   defaultCharset: 'utf-8',
+//   type: 'text/plain'
+// }))
+//
+app.use(bodyParser.urlencoded({extended: true}))
 
-app.get('/', (request, response) => {
-  response.render('index')
+app.post('/', (request, response) => {
+  response.status(200)
+    .type('text/plain')
+    console.log(response)
 })
-
 
 
 

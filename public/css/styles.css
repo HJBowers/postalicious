@@ -1,3 +1,59 @@
 body {
-  background-color: green;
+  font-size: 20px;
+  font-family: Arial;
+}
+
+.request-builder {
+  display: flex;
+  flex-direction: column;
+  width: 1200px;
+}
+
+.form-top {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.form-child {
+  margin: 0px 0px 0px 0px;
+  flex-grow: 1;
+}
+
+.method-host {
+  display: flex;
+  flex-direction: column;
+}
+
+.key-value {
+  display: flex;
+  align-content: stretch;
+}
+
+.keyfield {
+  width: 70px;
+}
+
+.input-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-body-field {
+  display: flex;
+  flex-grow: 2;
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+textarea {
+  resize: none;
+}
+
+input {
+  height: 30px;
+  font-size: 20px;
 }
