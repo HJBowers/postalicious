@@ -1,6 +1,9 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+const path = require('path')
 const app = express()
+
+app.use(express.static(path.join(__dirname, 'public')))
 
 app.use(bodyParser.text({
   defaultCharset: 'utf-8',
@@ -62,6 +65,26 @@ app.get('/myjsondata', (request, response) => {
         .send('Not Acceptable')
     }
   })
+})
+
+app.get('/old-page', (request, response) => {
+  response.status(301)
+  response.location('localhost:3000/newpage');
+})
+
+app.post('/admin-only', (request, response) => {
+  response.status(403)
+  .send('Not Authorized')
+})
+
+app.get('/not-a-page', (request, response) => {
+  response.status(404)
+  .send('Page Not Found')
+})
+
+app.get('/server-error', (request, response) => {
+  response.status(500)
+  .send('Server Error')
 })
 
 const server = app.listen(3000, () => {
