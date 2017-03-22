@@ -1,10 +1,11 @@
-var populateRequest = function(event, form, response) {
-  var method = document.querySelectorAll('form')
-  // for (let things in formStuff){
-  //   console.log(formStuff[things])
-  // }
+function populateRequest(event, form, response) {
+  var method = document.getElementById('formz').elements
+  for (let things in method){
+    console.log(things.value)
+  }
+
   console.log(method)
-  console.log(form)
+
 
   return
 }
