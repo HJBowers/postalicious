@@ -1,5 +1,5 @@
 body {
-  font-size: 20px;
+  font-size: 16px;
   font-family: Arial;
 }
 
@@ -31,7 +31,7 @@ body {
 }
 
 .keyfield {
-  width: 70px;
+  width: 120px;
 }
 
 .input-body {
@@ -55,5 +55,5 @@ textarea {
 
 input {
   height: 30px;
-  font-size: 20px;
+  font-size: 16px;
 }
