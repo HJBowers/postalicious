@@ -10,6 +10,11 @@ app.use(bodyParser.text({
   type: 'text/plain'
 }))
 
+app.use((request, response, next) => {
+  response.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
+  next()
+})
+
 app.get('/', (request, response) => {
   response.status(200)
     .type('text/plain')

@@ -2,17 +2,33 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css"> -->
     <link rel="stylesheet" href="/css/styles.css">
     <title>Postalicious</title>
   </head>
   <body>
     <h1>Postalicious</h1>
-    <form id="formz" class="request-builder" enctype="application/x-www-form-urlencoded">
+    <form name= "mainform" class="request-builder" enctype="application/x-www-form-urlencoded">
       <div class="form-top">
         <div class="method-host form-child">
           Method
-          <input class="method" type="text" name="method" placeholder="GET">
+          <select name="method">
+            <option value="GET">GET</option>
+            <option value="POST">POST</option>
+            <option value="PUT">PUT</option>
+            <option value="PATCH">PATCH</option>
+            <option value="DELETE">DELETE</option>
+            <option value="COPY">COPY</option>
+            <option value="HEAD">HEAD</option>
+            <option value="OPTIONS">OPTIONS</option>
+            <option value="LINK">LINK</option>
+            <option value="UNLINK">UNLINK</option>
+            <option value="PURGE">PURGE</option>
+            <option value="LOCK">LOCK</option>
+            <option value="UNLOCK">UNLOCK</option>
+            <option value="PROPFIND">PROPFIND</option>
+            <option value="VIEW">VIEW</option>
+          </select>
           Host
           <input class="host" type="text" name="host" placeholder="host">
         </div>
@@ -38,47 +54,133 @@
         <div class="headers form-child">
           Headers
           <div class="key-value">
-            <input class="keyfield" type="text" name="header-key1" placeholder="key">
-            <input class="valuefield" type="text" name="header-value1" placeholder="value">
+            <input list="header-keys" class="keyfield" type="text" name="header_key1" placeholder="key">
+            <input list= "header-values" class="valuefield" type="text" name="header_value1" placeholder="value">
           </div>
 
           <div class="key-value">
-            <input class="keyfield" type="text" name="header-key2" placeholder="key">
-            <input class="valuefield" type="text" name="header-value2" placeholder="value">
+            <input list="header-keys" class="keyfield" type="text" name="header_key2" placeholder="key">
+            <input list="header-values" class="valuefield" type="text" name="header_value2" placeholder="value">
           </div>
 
           <div class="key-value">
-            <input class="keyfield" type="text" name="header-key3" placeholder="key">
-            <input class="valuefield" type="text" name="header-value3" placeholder="value">
+            <input list="header-keys" class="keyfield" type="text" name="header_key3" placeholder="key">
+            <input list="header-values" class="valuefield" type="text" name="header_value3" placeholder="value">
           </div>
         </div>
 
         <div class="input-body form-child">
           Body
-          <textarea class="input-body-field" type="text" name="input-body" placeholder=""></textarea>
+          <textarea class="input-body-field" type="text" name="input_body" placeholder=""></textarea>
         </div>
       </div>
 
       <div class="form-buttons">
-        <button type="submit" onclick="populateRequest()" name="button">Build Request</button>
-        <button type="button" name="button">Build & Send</button>
+        <button type="submit" onclick="populateRequest(); return false" name="button">Build Request</button>
+        <button type="submit" onclick="populateResponse(); return false" name="button">Build & Send</button>
       </div>
     </form>
-    <div>
-      <div class="">
-        REQUEST
-      </div>
-      <div class="request-container">
+    <div class="request-response">
+      <div class="requestresponse-containers">
+        <div class="">
+          REQUEST
+        </div>
+        <div id="request-container">
 
+        </div>
       </div>
 
-      <div class="">
-        RESPONSE
-      </div>
-      <div class="response-container">
+      <div>
+        <div class="">
+          RESPONSE
+        </div>
+        <div id="response-container">
 
+        </div>
       </div>
     </div>
+
+    <datalist id="header-keys">
+      <option value="Accept">
+      <option value="Accept-Charset">
+      <option value="Accept-Encoding">
+      <option value="Access-Control-Request-Headers">
+      <option value="Access-Control-Request-Method">
+      <option value="Connection">
+      <option value="Content-Length">
+      <option value="Content-Type">
+      <option value="Cookie">
+      <option value="Cookie 2">
+      <option value="Content-Transfer-Encoding">
+      <option value="Date">
+      <option value="Expect">
+      <option value="Host">
+      <option value="Keep-Alive">
+      <option value="Origin">
+      <option value="Referer">
+      <option value="TE">
+      <option value="Trailer">
+      <option value="Transfer-Encoding">
+      <option value="Upgrade">
+      <option value="User-Agent">
+      <option value="Via">
+    </datalist>
+
+    <datalist id="header-values">
+      <option value="application/atom+xml">
+      <option value="application/ecmascript">
+      <option value="application/json">
+      <option value="application/javascript">
+      <option value="application/octet-stream">
+      <option value="application/ogg">
+      <option value="application/pdf">
+      <option value="application/postscript">
+      <option value="application/rdf+xml">
+      <option value="application/rss+xml">
+      <option value="application/soap+xml">
+      <option value="application/font-woff">
+      <option value="application/x-yaml">
+      <option value="application/xhtml+xml">
+      <option value="application/xml">
+      <option value="application/xml-dtd">
+      <option value="application/xop+xml">
+      <option value="application/zip">
+      <option value="application/gzip">
+      <option value="application/graphql">
+      <option value="application/x-www-form-urlencoded">
+      <option value="audio/basic">
+      <option value="audio/L24">
+      <option value="audio/mp4">
+      <option value="audio/mpeg">
+      <option value="audio/ogg">
+      <option value="audio/vorbis">
+      <option value="audio/vnd.rn-realaudio">
+      <option value="audio/vnd.wave">
+      <option value="audio/webm">
+      <option value="image/gif">
+      <option value="image/jpeg">
+      <option value="image/pjpeg">
+      <option value="image/png">
+      <option value="image/svg+xml">
+      <option value="image/tiff">
+      <option value="message/http">
+      <option value="message/imdn+xml">
+      <option value="message/partial">
+      <option value="message/rfc822">
+      <option value="multipart/mixed">
+      <option value="multipart/alternative">
+      <option value="multipart/related">
+      <option value="multipart/form-data">
+      <option value="multipart/signed">
+      <option value="multipart/encrypted">
+      <option value="text/cmd">
+      <option value="text/css">
+      <option value="text/csv">
+      <option value="text/html">
+      <option value="text/plain">
+      <option value="text/vcard">
+      <option value="text/xml">
+    </datalist>
 
     <script type="text/javascript" src="/javascript/script.js"></script>
     <script type="text/javascript" href="postalicious/serverlicious.js"></script>
