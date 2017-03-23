@@ -77,22 +77,26 @@
 
       <div class="form-buttons">
         <button type="submit" onclick="populateRequest(); return false" name="button">Build Request</button>
-        <button type="button" name="button">Build & Send</button>
+        <button type="submit" onclick="populateResponse(); return false" name="button">Build & Send</button>
       </div>
     </form>
-    <div>
-      <div class="">
-        REQUEST
-      </div>
-      <div id="request-container">
+    <div class="request-response">
+      <div class="requestresponse-containers">
+        <div class="">
+          REQUEST
+        </div>
+        <div id="request-container">
 
+        </div>
       </div>
 
-      <div class="">
-        RESPONSE
-      </div>
-      <div class="response-container">
+      <div>
+        <div class="">
+          RESPONSE
+        </div>
+        <div id="response-container">
 
+        </div>
       </div>
     </div>
 
