@@ -11,7 +11,9 @@ app.use(bodyParser.text({
 }))
 
 app.use((request, response, next) => {
-  response.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
+  response.setHeader('Access-Control-Allow-Origin', '*');
+  response.setHeader('Access-Control-Allow-Breakfast', 'bananapancakes');
+  response.setHeader('Access-Control-Allow-Headers', 'Content-Type', 'Access-Control-Allow-Headers', 'X-Requested-With' )
   next()
 })
 
@@ -74,7 +76,7 @@ app.get('/myjsondata', (request, response) => {
 
 app.get('/old-page', (request, response) => {
   response.status(301)
-  response.location('localhost:3000/newpage');
+  response.location('http://localhost:3000/newpage');
 })
 
 app.post('/admin-only', (request, response) => {

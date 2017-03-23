@@ -1,5 +1,3 @@
-let request
-
 const populateRequest = () => {
   const formElements = document.mainform.elements
   let elementValuesObject = {}
@@ -8,27 +6,24 @@ const populateRequest = () => {
     elementValuesObject[element.name] = element.value
   }
 
-  let requestMethodHost = `${elementValuesObject.method} / HTTP/1.1
-Host: ${elementValuesObject.host}
-`
+  let requestMethodHost = `${elementValuesObject.method} / HTTP/1.1 <br>
+Host: ${elementValuesObject.host}`
 
   let requestHeader = ``
+
   if (elementValuesObject.header_key1) {
     requestHeader = requestHeader +
-      `${elementValuesObject.header_key1}: ${elementValuesObject.header_value1}
-`
+      `${elementValuesObject.header_key1}: ${elementValuesObject.header_value1}<br>`
   }
 
   if (elementValuesObject.header_key2) {
     requestHeader = requestHeader +
-      `${elementValuesObject.header_key2}: ${elementValuesObject.header_value2}
-`
+      `${elementValuesObject.header_key2}: ${elementValuesObject.header_value2}<br>`
   }
 
   if (elementValuesObject.header_key3) {
     requestHeader = requestHeader +
-      `${elementValuesObject.header_key3}: ${elementValuesObject.header_value3}
-`
+      `${elementValuesObject.header_key3}: ${elementValuesObject.header_value3}<br>`
   }
 
   let requestQuery = ``
@@ -56,23 +51,24 @@ Host: ${elementValuesObject.host}
 
   let requestQueryEncoded = encodeURI(requestQuery)
 
-  request = requestMethodHost + requestHeader + "\n" + requestQueryEncoded + requestBody
-
   //WIP
-  let requestHTMLified = "<b>" + requestMethodHost + "</b><br>" + requestHeader + "<br><br>" + requestQueryEncoded + requestBody
+  let requestHTMLified = requestMethodHost + "<br>" + requestHeader + "<br>" + requestQueryEncoded + requestBody
 
   document.getElementById("request-container").innerHTML = requestHTMLified
 }
 
 const populateResponse = () => {
+  let responseHeaders = []
+  let responseHeaderValues = []
+  let status
+  let statusText
+
   const formElements = document.mainform.elements
   let elementValuesObject = {}
 
   for (let element of formElements){
     elementValuesObject[element.name] = element.value
   }
-
-  console.log(elementValuesObject)
 
   const myHeaders = new Headers()
   if (elementValuesObject.header_key1) {
@@ -93,7 +89,7 @@ const populateResponse = () => {
   let requestQuery = ''
 
   if (elementValuesObject.key1) {
-    requestQuery +=
+    requestQuery += "?" +
       encodeURIComponent(elementValuesObject.key1) +
       "="+ encodeURIComponent(elementValuesObject.value1)
   }
@@ -108,19 +104,59 @@ const populateResponse = () => {
       "="+ encodeURIComponent(elementValuesObject.value3)
   }
 
-  console.log(requestQuery)
-
-  let url = elementValuesObject.host + "?" + requestQuery
+  let url = elementValuesObject.host + requestQuery
 
   const myRequest = new Request(url, myInit)
 
-  console.log(myRequest)
+  function readAllChunks(readableStream) {
+    const reader = readableStream.getReader();
+    const chunks = [];
+
+    return pump();
+
+    function pump() {
+      return reader.read().then(({ value, done }) => {
+        if (done) {
+          return chunks;
+        }
+
+        chunks.push(value);
+        return pump();
+      });
+    }
+  }
 
   fetch(myRequest)
-    .then(function(response) {
-      console.log(response)
+    .then(response => {
+      for (let key of response.headers.keys()) {
+        responseHeaders.push(key)
+      }
+      for (let value of response.headers.values()) {
+        responseHeaderValues.push(value)
+      }
+      status = response.status
+      statusText = response.statusText
+
+
+      return readAllChunks(response.body)
+    })
+    .then(result => {
+      let responseBody = new TextDecoder("utf-8").decode(result[0])
+      return responseBody
+    })
+    .then(body => {
+      contentLength = body.length
+      let responseHeadersAndValues = []
+      responseHeaders.forEach((element, index) => {
+        responseHeadersAndValues.push(element.replace(/\b\w/g, l => l.toUpperCase()))
+        responseHeadersAndValues.push(": ")
+        responseHeadersAndValues.push(responseHeaderValues[index])
+        responseHeadersAndValues.push("\n")
+      })
+
       let container = document.getElementById("response-container")
-      container.innerText = response.status
+      container.innerText = "HTTP/1.1 " + status + " " + statusText + "\n" +
+        responseHeadersAndValues.join('') + "\n" +  body
     })
 
 }
