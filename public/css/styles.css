@@ -25,8 +25,7 @@ body {
 }
 
 .form-child {
-  margin: 0px 0px 0px 0px;
-  flex-grow: 1;
+  width: 50%;
 }
 
 .method-host {
