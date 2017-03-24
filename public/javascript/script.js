@@ -1,58 +1,35 @@
 const populateRequest = () => {
   const formElements = document.mainform.elements
-  let elementValuesObject = {}
+  let formValues = {}
 
   for (let element of formElements){
-    elementValuesObject[element.name] = element.value
+    formValues[element.name] = element.value
   }
 
-  let requestMethodHost = `${elementValuesObject.method} / HTTP/1.1 <br>
-Host: ${elementValuesObject.host}`
+  let requestMethodHost = `${formValues.method} / HTTP/1.1 <br>Host: ${formValues.host}`
 
   let requestHeader = ``
-
-  if (elementValuesObject.header_key1) {
-    requestHeader = requestHeader +
-      `${elementValuesObject.header_key1}: ${elementValuesObject.header_value1}<br>`
-  }
-
-  if (elementValuesObject.header_key2) {
-    requestHeader = requestHeader +
-      `${elementValuesObject.header_key2}: ${elementValuesObject.header_value2}<br>`
-  }
-
-  if (elementValuesObject.header_key3) {
-    requestHeader = requestHeader +
-      `${elementValuesObject.header_key3}: ${elementValuesObject.header_value3}<br>`
+  for (var i = 1; i <= 3; i++) {
+    if(formValues[`header_key${i}`]) {
+      requestHeader += `${formValues[`header_key${i}`]}: ${formValues[`header_value${i}`]}<br>`
+    }
   }
 
   let requestQuery = ``
-
-  if (elementValuesObject.key1) {
-    requestQuery +=
-      `${elementValuesObject.key1}=${elementValuesObject.value1}`
-  }
-
-  if (elementValuesObject.key2) {
-    requestQuery +=
-      `&${elementValuesObject.key2}=${elementValuesObject.value2}`
-  }
-
-  if (elementValuesObject.key3) {
-    requestQuery +=
-      `&${elementValuesObject.key3}=${elementValuesObject.value3}`
-  }
-
-  let requestBody = ``
-
-  if (elementValuesObject.input_body) {
-    requestBody += `${elementValuesObject.input_body}`
+  for (var i = 1; i <= 3; i++) {
+    if(formValues[`key${i}`]) {
+      if(i === 1) {
+        requestQuery += `${formValues[`key${i}`]}=${formValues[`value${i}`]}`
+      } else {
+        requestQuery += `&${formValues[`key${i}`]}=${formValues[`value${i}`]}`
+      }
+    }
   }
 
   let requestQueryEncoded = encodeURI(requestQuery)
 
-  //WIP
-  let requestHTMLified = requestMethodHost + "<br>" + requestHeader + "<br>" + requestQueryEncoded + requestBody
+  let requestHTMLified = requestMethodHost + "<br>" + requestHeader + "<br>" +
+    requestQueryEncoded + formValues.input_body
 
   document.getElementById("request-container").innerHTML = requestHTMLified
 }
@@ -64,47 +41,39 @@ const populateResponse = () => {
   let statusText
 
   const formElements = document.mainform.elements
-  let elementValuesObject = {}
-
+  let formValues = {}
   for (let element of formElements){
-    elementValuesObject[element.name] = element.value
+    formValues[element.name] = element.value
   }
 
   const myHeaders = new Headers()
-  if (elementValuesObject.header_key1) {
-    myHeaders.append(elementValuesObject.header_key1, elementValuesObject.header_value1)
-  }
-  if (elementValuesObject.header_key2){
-    myHeaders.append(elementValuesObject.header_key2, elementValuesObject.header_value2)
-  }
-  if (elementValuesObject.header_key3) {
-    myHeaders.append(elementValuesObject.header_key3, elementValuesObject.header_value3)
+  for (var i = 1; i <= 3; i++) {
+    if (formValues[`header_key${i}`]) {
+      myHeaders.append(formValues[`header_key${i}`], formValues[`header_value${i}`])
+    }
   }
 
   const myInit = {
-    method: elementValuesObject.method,
+    method: formValues.method,
     headers: myHeaders,
   }
 
   let requestQuery = ''
-
-  if (elementValuesObject.key1) {
-    requestQuery += "?" +
-      encodeURIComponent(elementValuesObject.key1) +
-      "="+ encodeURIComponent(elementValuesObject.value1)
-  }
-  if (elementValuesObject.key2) {
-    requestQuery += "&" +
-      encodeURIComponent(elementValuesObject.key2) +
-      "="+ encodeURIComponent(elementValuesObject.value2)
-  }
-  if (elementValuesObject.key3) {
-    requestQuery += "&" +
-      encodeURIComponent(elementValuesObject.key3) +
-      "="+ encodeURIComponent(elementValuesObject.value3)
+  for (var i = 1; i <= 3; i++) {
+    if(formValues[`key${i}`]) {
+      if (i === 1) {
+        requestQuery += "?" +
+          encodeURIComponent(formValues[`key${i}`]) +
+          "="+ encodeURIComponent(formValues[`value${i}`])
+      } else {
+        requestQuery += "&" +
+          encodeURIComponent(formValues[`key${i}`]) +
+          "="+ encodeURIComponent(formValues[`value${i}`])
+      }
+    }
   }
 
-  let url = elementValuesObject.host + requestQuery
+  let url = formValues.host + requestQuery
 
   const myRequest = new Request(url, myInit)
 
@@ -137,26 +106,25 @@ const populateResponse = () => {
       status = response.status
       statusText = response.statusText
 
-
       return readAllChunks(response.body)
     })
-    .then(result => {
-      let responseBody = new TextDecoder("utf-8").decode(result[0])
-      return responseBody
-    })
-    .then(body => {
-      contentLength = body.length
-      let responseHeadersAndValues = []
-      responseHeaders.forEach((element, index) => {
-        responseHeadersAndValues.push(element.replace(/\b\w/g, l => l.toUpperCase()))
-        responseHeadersAndValues.push(": ")
-        responseHeadersAndValues.push(responseHeaderValues[index])
-        responseHeadersAndValues.push("\n")
+      .then(result => {
+        let responseBody = new TextDecoder("utf-8").decode(result[0])
+        return responseBody
       })
+        .then(body => {
+          contentLength = body.length
+          let responseHeadersAndValues = []
+          responseHeaders.forEach((element, index) => {
+            responseHeadersAndValues.push(element.replace(/\b\w/g, l => l.toUpperCase()))
+            responseHeadersAndValues.push(": ")
+            responseHeadersAndValues.push(responseHeaderValues[index])
+            responseHeadersAndValues.push("\n")
+          })
 
-      let container = document.getElementById("response-container")
-      container.innerText = "HTTP/1.1 " + status + " " + statusText + "\n" +
-        responseHeadersAndValues.join('') + "\n" +  body
-    })
+          let container = document.getElementById("response-container")
+          container.innerText = "HTTP/1.1 " + status + " " + statusText + "\n" +
+            responseHeadersAndValues.join('') + "\n" + body
+        })
 
 }
