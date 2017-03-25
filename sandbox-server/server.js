@@ -12,7 +12,6 @@ app.use(bodyParser.text({
 
 app.use((request, response, next) => {
   response.setHeader('Access-Control-Allow-Origin', '*');
-  response.setHeader('Access-Control-Allow-Breakfast', 'bananapancakes');
   response.setHeader('Access-Control-Allow-Headers', 'Content-Type', 'Access-Control-Allow-Headers', 'X-Requested-With' )
   next()
 })

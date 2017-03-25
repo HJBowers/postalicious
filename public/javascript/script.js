@@ -34,17 +34,19 @@ const populateRequest = () => {
   document.getElementById("request-container").innerHTML = requestHTMLified
 }
 
-const populateResponse = () => {
+populateResponse = (formValues) => {
   let responseHeaders = []
   let responseHeaderValues = []
   let status
   let statusText
 
-  const formElements = document.mainform.elements
-  let formValues = {}
-  for (let element of formElements){
-    formValues[element.name] = element.value
-  }
+  // const formElements = document.mainform.elements
+  // let formValues = {}
+  // for (let element of formElements){
+  //   formValues[element.name] = element.value
+  // }
+
+  console.log("Here is what's being passed through the function --->", formValues)
 
   const myHeaders = new Headers()
   for (var i = 1; i <= 3; i++) {
@@ -128,3 +130,5 @@ const populateResponse = () => {
         })
 
 }
+
+module.exports = populateResponse;
