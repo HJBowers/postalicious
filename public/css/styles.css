@@ -6,7 +6,6 @@ body {
 .request-builder {
   display: flex;
   flex-direction: column;
-  width: 1200px;
 }
 
 .form-top {
@@ -25,8 +24,7 @@ body {
 }
 
 .form-child {
-  margin: 0px 0px 0px 0px;
-  flex-grow: 1;
+  width: 25%;
 }
 
 .method-host {
